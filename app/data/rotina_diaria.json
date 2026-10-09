@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "aba_origem": "Rotina Diária Mot. Frota2",
+    "titulo_aba": "Acompanhamento Diário Frota - Geral",
+    "data_referencia": "2026-10-09",
+    "atualizado_em": "2026-10-09T17:40:00"
+  },
+  "colunas": [
+    "local",
+    "motorista",
+    "status"
+  ],
+  "linhas": [
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "EDIVAN DE SOUZA BORGES",
+      "status": "Carregado"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "EDIVAN SANTOS DE OLIVEIRA",
+      "status": "Carregado"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "FRANCISCO DE ASSIS CARNEIRO",
+      "status": "Disponível"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "GERSON BARRETO DE OLIVEIRA",
+      "status": "Aguard. Descarga Cliente"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "JUARI OLIVEIRA FREITAS",
+      "status": "Interno"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "MARCOS HENRIQUE GOMES SILVA",
+      "status": "Disponível"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "MAYRON DA SILVA CORDEIRO",
+      "status": "Em Viagem"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "ROMILSON DE SOUSA AMORIM",
+      "status": "Em Viagem"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "UBIRAJARA SOUZA DA SILVA",
+      "status": "Carregado"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "WANDERSON MARCOS DOS SANTOS OLIVEIRA",
+      "status": "Carregado"
+    },
+    {
+      "local": "CD FILIAL - BA",
+      "motorista": "WELLINGTON RICARDO MOREIRA PESSOA",
+      "status": "Carregado"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "CESAR HENRIQUE SILVA RAMOS",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "ELENILSON PEREIRA FERREIRA",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "GIDILANE MOREIRA DE JESUS",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "JACIEL ALMEIDA DE JESUS",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "JARDEL SANTANA DE LIMA",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "MARCOS SOUZA DE PAULA",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "ROBERVAL IDELBRANDO REIS",
+      "status": "Interno"
+    },
+    {
+      "local": "FÁB. FILIAL - BA",
+      "motorista": "ROGERIO DOS SANTOS VIEIRA",
+      "status": "Interno"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "CARLOS ROBERTO PEREIRA DOS SANTOS",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "DIRCEU AMBROSIO",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "DOUGLAS RODRIGUES COUTINHO",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "EDER WILSON SOUSA SILVA",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "ERASMO SILVA CARNEIRO",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "FRANCIS FABIANO MORAES DE OLIVEIRA",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "NIVALDO BRAGA MACHADO",
+      "status": "Não informado"
+    },
+    {
+      "local": "MATRIZ-SP",
+      "motorista": "ROBERTO BORGES DOS SANTOS",
+      "status": "Não informado"
+    }
+  ]
+}

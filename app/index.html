@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COCKPIT DIÁRIO • Colormaq | Área de Trabalho Filial</title>
+<meta name="description" content="Cockpit Diário da frota Colormaq — contagem de veículos por local, categoria e status + acompanhamento diário de motoristas.">
+<link rel="icon" type="image/png" href="assets/logo-colormaq-blue.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================ TOPO ============================ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="assets/logo-colormaq-white.png" alt="Colormaq" class="brand-logo">
+      <div class="brand-text">
+        <h1>COCKPIT DIÁRIO</h1>
+        <p>Área de Trabalho Filial · Frota &amp; Motoristas · FILIAL-BA × MATRIZ-SP</p>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <span class="chip chip-light" id="chip-data">—</span>
+      <span class="chip chip-light" id="chip-total">—</span>
+      <label class="chip chip-light chip-select">📅
+        <select id="sel-data" title="Data da contagem"></select>
+      </label>
+      <span class="chip chip-light" id="chip-atualizacao" title="Horário da carga">—</span>
+      <button class="btn-refresh" id="btn-atualizar" title="Recarregar dados da planilha">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M17.65 6.35A7.96 7.96 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        Atualizar
+      </button>
+    </div>
+  </div>
+  <div class="source-flag" id="source-flag" hidden></div>
+</header>
+
+<main class="page">
+
+  <!-- ========================= KPIs ========================= -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Indicadores do dia</h2>
+      <span class="section-sub">Aba “Cockpit Diário” · COCKPIT RESUMO DIÁRIO GERAL</span>
+    </div>
+    <div class="kpi-grid" id="kpi-grid"><!-- preenchido via JS --></div>
+  </section>
+
+  <!-- ======================= GRÁFICOS ======================= -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Visão geral da frota</h2>
+      <span class="section-sub">Contagem de 09/10 por local, categoria e status</span>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card span-3">
+        <header class="card-head">
+          <h3>Evolução diária da frota por status <small>(todos os dias captados)</small></h3>
+          <span class="card-tag" id="tag-evol"></span>
+        </header>
+        <div class="chart-box"><canvas id="chart-evol"></canvas></div>
+      </article>
+
+      <article class="card span-2">
+        <header class="card-head">
+          <h3>Status da frota por local <small>(veículos)</small></h3>
+          <span class="card-tag" id="tag-locais"></span>
+        </header>
+        <div class="chart-box"><canvas id="chart-locais"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card-head"><h3>Distribuição geral</h3></header>
+        <div class="chart-box"><canvas id="chart-grupos"></canvas></div>
+      </article>
+
+      <article class="card span-2">
+        <header class="card-head">
+          <h3>Categorias de veículo × status</h3>
+          <span class="card-tag" id="tag-cats"></span>
+        </header>
+        <div class="chart-box tall"><canvas id="chart-categorias"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card-head"><h3>Motoristas por status</h3><span class="card-tag" id="tag-mot"></span></header>
+        <div class="chart-box tall"><canvas id="chart-motoristas"></canvas></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== INSIGHTS ======================== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Insights &amp; destaques</h2>
+      <span class="section-sub">Leitura automática da contagem do dia</span>
+    </div>
+    <div class="insight-summary" id="insight-summary"></div>
+    <div class="insight-grid" id="insight-grid"></div>
+  </section>
+
+  <!-- ===================== FROTA DETALHADA ===================== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Frota detalhada por veículo</h2>
+      <span class="section-sub">Cadastro e status do dia selecionado · aba “Cockpit Diário”</span>
+    </div>
+    <div class="table-tools">
+      <div class="filters" id="filters-frota">
+        <button class="filter is-active" data-local="todos">Todos</button>
+        <button class="filter" data-local="FILIAL-BA">FILIAL-BA</button>
+        <button class="filter" data-local="MATRIZ-SP">MATRIZ-SP</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+        <input type="search" id="busca-frota" placeholder="Buscar placa, modelo, categoria…">
+      </label>
+    </div>
+    <div class="card table-card">
+      <div class="table-wrap">
+        <table class="table" id="tabela-frota">
+          <thead>
+            <tr>
+              <th data-fkey="placa">Placa</th>
+              <th data-fkey="marca">Marca / modelo</th>
+              <th data-fkey="tp_veiculo">Tipo</th>
+              <th data-fkey="categoria">Categoria</th>
+              <th data-fkey="local">Local</th>
+              <th data-fkey="situacao">Situação</th>
+              <th>Status do dia</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-frota"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== RESUMO DIÁRIO GERAL ================== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Cockpit resumo diário geral</h2>
+      <span class="section-sub">Estrutura local → categoria → status, como na planilha</span>
+    </div>
+    <div class="card table-card">
+      <div class="table-wrap">
+        <table class="table tree" id="tabela-resumo">
+          <thead>
+            <tr>
+              <th style="cursor:default">Local</th>
+              <th style="cursor:default">Categoria</th>
+              <th style="cursor:default">Status · 09/10</th>
+              <th class="num" style="cursor:default">Contagem</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-resumo"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ROTINA / MOTORISTAS ==================== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Acompanhamento diário frota — geral</h2>
+      <span class="section-sub">Aba “Rotina Diária Mot. Frota2”</span>
+    </div>
+
+    <div class="table-tools">
+      <div class="filters" id="filters">
+        <button class="filter is-active" data-local="todos">Todos os locais</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+        <input type="search" id="busca" placeholder="Buscar motorista ou local…">
+      </label>
+    </div>
+
+    <div class="card table-card">
+      <div class="table-wrap">
+        <table class="table" id="tabela-rotina">
+          <thead>
+            <tr>
+              <th data-key="local">Local CD</th>
+              <th data-key="motorista">Motorista</th>
+              <th data-key="status">Status · 09/10</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-rotina"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div>
+      <img src="assets/logo-colormaq-blue.png" alt="Colormaq" class="footer-logo">
+      <span>COCKPIT DIÁRIO · Área de Trabalho Filial</span>
+    </div>
+    <div class="footer-source" id="footer-source"></div>
+  </footer>
+</main>
+
+<script src="vendor/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
